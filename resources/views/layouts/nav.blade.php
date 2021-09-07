@@ -14,6 +14,13 @@
             Products
           </a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('users.index') }}">
+            <span data-feather="shopping-cart"></span>
+            Users
+          </a>
+        </li>
         
       </ul>
 

@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::view('/root', 'index')->name('root');
+Route::view('/', 'index')->name('root');
 
 Route::group(['prefix' => 'products', 'as' => 'products.'], function(){
 
@@ -17,6 +16,8 @@ Route::group(['prefix' => 'products', 'as' => 'products.'], function(){
     Route::put('/{id}/edit', [ProductsController::class, 'update'])->name('update');
     Route::delete('/{id}/delete', [ProductsController::class, 'delete'])->name('delete');
 });
+
+Route::resource('users', UserController::class);
 
 
 
