@@ -9,11 +9,9 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $products = Product::get();
+        $products = \App\Product::orderBy('id', 'DESC')->paginate();
 
-        return view('products.index', [
-            'products' => $products
-        ]);
+        return view('products.index', compact('products'));
     }
 
     public function create()
@@ -21,7 +19,7 @@ class ProductsController extends Controller
         return view('products.create');
     }
     
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $product = Product::create([
             'name' => $request->post('name'),
@@ -31,9 +29,16 @@ class ProductsController extends Controller
         return redirect(route('products.index'));
     }
 
+    public function show($id){
+
+        $product = \App\Product::find($id);
+        return view('products.show', compact('product'));
+
+    }
+
     public function edit($id)
     {
-        $product = Product::where('id', $id)->first();
+        $product = \App\Product::where('id', $id)->first();
 
         return view('products.edit', [
             'product' => $product
@@ -42,7 +47,7 @@ class ProductsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $product = \App\Product::findOrFail($id);
 
         $product->update([
             'name' => $request->post('name'),
@@ -55,7 +60,7 @@ class ProductsController extends Controller
 
     public function delete($id)
     {
-        $product = Product::findOrFail($id);
+        $product = \App\Product::findOrFail($id);
         $product->delete();
 
 
